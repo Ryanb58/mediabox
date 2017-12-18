@@ -281,3 +281,22 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         command: portainer --schedule @midnight --cleanup
+    
+    # ----------------------------------------
+    # HEADPHONES
+    # ----------------------------------------
+    headphones:
+        import: linuxserver/headphones
+        container_name: headphones
+        restart: unless-stopped
+        ports:
+            - '${IP_ADDRESS}:8181:8181'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+        network_mode: "bridge"
+        volumes:
+            - './headphones:/config'
+            - './content/completed:/downloads'
+            - './content/music:/music'
+            - '/etc/localtime:/etc/localtime:ro''        
